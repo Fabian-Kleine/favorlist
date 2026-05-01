@@ -2,37 +2,25 @@
 
 import { motion } from "framer-motion"
 import { Share2, Gift, Link2 } from "lucide-react"
-
-const features = [
-  {
-    icon: Share2,
-    title: "Share with anyone",
-    description:
-      "Generate a public link and share it via text, email, or social media. No account needed to view.",
-  },
-  {
-    icon: Gift,
-    title: "Claim items",
-    description:
-      "Friends sign in to claim what they're buying. No more awkward conversations about who got what.",
-  },
-  {
-    icon: Link2,
-    title: "Auto-fill from URL",
-    description:
-      "Paste any product URL and we'll automatically pull the title, description, and image for you.",
-  },
-]
+import { useTranslations } from "next-intl"
 
 export function Features() {
+  const t = useTranslations("landing.features")
+
+  const features = [
+    { icon: Share2, title: t("shareTitle"), description: t("shareDesc") },
+    { icon: Gift, title: t("claimTitle"), description: t("claimDesc") },
+    { icon: Link2, title: t("autofillTitle"), description: t("autofillDesc") },
+  ]
+
   return (
     <section id="features" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
       <div className="mb-16 text-center">
         <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-          Everything you need
+          {t("heading")}
         </h2>
         <p className="mt-4 text-muted-foreground">
-          Simple tools to make gift-giving effortless for everyone.
+          {t("subheading")}
         </p>
       </div>
 

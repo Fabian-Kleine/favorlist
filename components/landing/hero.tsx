@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Gift, Heart, Star } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 const ease = [0.25, 0.1, 0.25, 1] as const
 
@@ -17,6 +18,8 @@ function fadeUp(delay: number) {
 }
 
 export function Hero() {
+  const t = useTranslations("landing.hero")
+
   return (
     <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pt-16 text-center">
       {/* Radial gradient background */}
@@ -31,7 +34,7 @@ export function Hero() {
       <motion.div {...fadeUp(0)}>
         <Badge variant="secondary" className="mb-6 gap-1.5 px-3 py-1">
           <Star className="h-3 w-3 fill-current" />
-          Share wishlists with anyone
+          {t("badge")}
         </Badge>
       </motion.div>
 
@@ -39,16 +42,15 @@ export function Hero() {
         {...fadeUp(0.12)}
         className="font-heading max-w-3xl text-5xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl"
       >
-        Wishlists your friends
-        <span className="text-primary"> actually use</span>
+        {t("headline1")}
+        <span className="text-primary"> {t("headline2")}</span>
       </motion.h1>
 
       <motion.p
         {...fadeUp(0.24)}
         className="mt-6 max-w-xl text-lg text-muted-foreground"
       >
-        Create a wishlist, share the link, and let friends claim items so
-        there&apos;s no duplicate gifts. No app download required.
+        {t("description")}
       </motion.p>
 
       <motion.div
@@ -57,13 +59,13 @@ export function Hero() {
       >
         <Link href="/login">
           <Button size="lg" className="gap-2">
-            Create your wishlist
+            {t("cta")}
             <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
         <a href="#features">
           <Button size="lg" variant="outline">
-            See how it works
+            {t("learnMore")}
           </Button>
         </a>
       </motion.div>

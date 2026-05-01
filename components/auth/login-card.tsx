@@ -11,8 +11,11 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Gift } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export function LoginCard() {
+  const t = useTranslations("login")
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -25,9 +28,9 @@ export function LoginCard() {
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
             <Gift className="h-6 w-6 text-primary" />
           </div>
-          <CardTitle className="font-heading text-2xl">Welcome to Favorlist</CardTitle>
+          <CardTitle className="font-heading text-2xl">{t("title")}</CardTitle>
           <CardDescription>
-            Create and share wishlists with the people who matter.
+            {t("description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -53,7 +56,7 @@ export function LoginCard() {
                 fill="#EA4335"
               />
             </svg>
-            Continue with Google
+            {t("continueWithGoogle")}
           </Button>
         </CardContent>
       </Card>

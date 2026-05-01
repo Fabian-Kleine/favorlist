@@ -1,7 +1,10 @@
 import Link from "next/link"
 import { Gift } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 
-export function Footer() {
+export async function Footer() {
+  const t = await getTranslations("landing.footer")
+
   return (
     <footer className="border-t border-border/50 py-8">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -10,7 +13,7 @@ export function Footer() {
           Favorlist
         </Link>
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Favorlist. All rights reserved.
+          {t("rights", { year: new Date().getFullYear() })}
         </p>
       </div>
     </footer>

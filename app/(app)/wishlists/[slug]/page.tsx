@@ -12,6 +12,7 @@ import { DeadlineCounter } from "@/components/wishlists/deadline-counter"
 import { OwnerItemRow } from "@/components/wishlists/owner-item-row"
 import { Share2, ArrowLeft, Globe, Lock } from "lucide-react"
 import { ShareButton } from "@/components/wishlists/share-button"
+import { getTranslations } from "next-intl/server"
 
 export default async function OwnerWishlistPage({
   params,
@@ -21,6 +22,8 @@ export default async function OwnerWishlistPage({
   const { slug } = await params
   const session = await auth()
   if (!session?.user?.id) redirect("/login")
+
+  const t = await getTranslations("wishlists")
 
   const wishlist = await db.query.wishlists.findFirst({
     where: eq(wishlists.slug, slug),
@@ -42,7 +45,7 @@ export default async function OwnerWishlistPage({
         <Link href="/dashboard">
           <Button variant="ghost" size="sm" className="gap-1.5">
             <ArrowLeft className="h-3.5 w-3.5" />
-            Dashboard
+            {t("dashboard")}
           </Button>
         </Link>
       </div>
@@ -79,7 +82,7 @@ export default async function OwnerWishlistPage({
       {wishlist.items.length === 0 ? (
         <div className="py-16 text-center">
           <p className="mb-4 text-muted-foreground">
-            No items yet. Add your first item!
+            {t("noItems")}
           </p>
           <AddItemDialog wishlistId={wishlist.id} />
         </div>
@@ -87,11 +90,10 @@ export default async function OwnerWishlistPage({
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
-              {wishlist.items.length}{" "}
-              {wishlist.items.length === 1 ? "item" : "items"}
+              {t("items", { count: wishlist.items.length })}
             </p>
             <Badge variant="secondary">
-              {wishlist.items.filter((i) => i.claimedByUserId).length} claimed
+              {t("claimed", { count: wishlist.items.filter((i) => i.claimedByUserId).length })}
             </Badge>
           </div>
           {wishlist.items.map((item) => (

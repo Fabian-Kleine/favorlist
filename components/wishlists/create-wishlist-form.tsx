@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch"
 import { DateTimePicker } from "@/components/ui/date-time-picker"
 import { createWishlist } from "@/app/actions/wishlist"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 type FormData = {
   title: string
@@ -19,6 +20,7 @@ type FormData = {
 }
 
 export function CreateWishlistForm() {
+  const t = useTranslations("wishlists.form")
   const [isPending, startTransition] = useTransition()
 
   const {
@@ -44,7 +46,7 @@ export function CreateWishlistForm() {
           err instanceof Error &&
           !err.message.includes("NEXT_REDIRECT")
         ) {
-          toast.error("Failed to create wishlist")
+          toast.error(t("failedToCreate"))
         }
       }
     })
@@ -53,13 +55,13 @@ export function CreateWishlistForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div className="space-y-1.5">
-        <Label htmlFor="title">Title *</Label>
+        <Label htmlFor="title">{t("titleLabel")}</Label>
         <Input
           id="title"
-          placeholder="e.g. Birthday Wishlist 2025"
+          placeholder={t("titlePlaceholder")}
           {...register("title", {
-            required: "Title is required",
-            maxLength: { value: 100, message: "Max 100 characters" },
+            required: t("titleRequired"),
+            maxLength: { value: 100, message: t("titleMax") },
           })}
         />
         {errors.title && (
@@ -68,13 +70,13 @@ export function CreateWishlistForm() {
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description">{t("descLabel")}</Label>
         <Textarea
           id="description"
-          placeholder="Any notes for your friends..."
+          placeholder={t("descPlaceholder")}
           rows={3}
           {...register("description", {
-            maxLength: { value: 500, message: "Max 500 characters" },
+            maxLength: { value: 500, message: t("descMax") },
           })}
         />
         {errors.description && (
@@ -85,7 +87,7 @@ export function CreateWishlistForm() {
       </div>
 
       <div className="space-y-1.5">
-        <Label>Deadline (optional)</Label>
+        <Label>{t("deadlineLabel")}</Label>
         <Controller
           control={control}
           name="deadline"
@@ -93,7 +95,7 @@ export function CreateWishlistForm() {
             <DateTimePicker
               value={field.value}
               onChange={field.onChange}
-              placeholder="No deadline set"
+              placeholder={t("deadlinePlaceholder")}
             />
           )}
         />
@@ -101,9 +103,9 @@ export function CreateWishlistForm() {
 
       <div className="flex items-center justify-between rounded-lg border border-border p-4">
         <div>
-          <p className="text-sm font-medium">Public wishlist</p>
+          <p className="text-sm font-medium">{t("publicLabel")}</p>
           <p className="text-xs text-muted-foreground">
-            Anyone with the link can view this list
+            {t("publicDesc")}
           </p>
         </div>
         <Controller
@@ -116,7 +118,7 @@ export function CreateWishlistForm() {
       </div>
 
       <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Creating..." : "Create wishlist"}
+        {isPending ? t("creating") : t("create")}
       </Button>
     </form>
   )

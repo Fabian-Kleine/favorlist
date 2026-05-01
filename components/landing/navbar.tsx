@@ -3,9 +3,24 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Gift } from "lucide-react"
+import { Gift, Settings, LogOut, Languages, Sun, Moon, Monitor } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { signIn } from "next-auth/react"
+import { signIn, signOut } from "next-auth/react"
+import { useTranslations, useLocale } from "next-intl"
+import { useTheme } from "next-themes"
+import { useRouter } from "next/navigation"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@/components/ui/dropdown-menu"
 
 type NavbarProps = {
   user?: {
@@ -15,6 +30,11 @@ type NavbarProps = {
 }
 
 export function Navbar({ user }: NavbarProps) {
+  const t = useTranslations("landing.navbar")
+  const tCommon = useTranslations("common")
+  const locale = useLocale()
+  const { theme, setTheme } = useTheme()
+  const router = useRouter()
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -22,6 +42,11 @@ export function Navbar({ user }: NavbarProps) {
     window.addEventListener("scroll", handler, { passive: true })
     return () => window.removeEventListener("scroll", handler)
   }, [])
+
+  function setLocale(next: string) {
+    document.cookie = `NEXT_LOCALE=${next};path=/;max-age=31536000;SameSite=Lax`
+    router.refresh()
+  }
 
   return (
     <header
@@ -41,22 +66,119 @@ export function Navbar({ user }: NavbarProps) {
           {user ? (
             <>
               <Link href="/dashboard">
-                <Button variant="ghost" size="sm">Dashboard</Button>
+                <Button variant="ghost" size="sm">{t("dashboard")}</Button>
               </Link>
-              {user.image && (
-                <Image
-                  src={user.image}
-                  alt={user.name ?? "Avatar"}
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-              )}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                    {user.image ? (
+                      <Image
+                        src={user.image}
+                        alt={user.name ?? "Avatar"}
+                        width={32}
+                        height={32}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <div className="h-8 w-8 rounded-full bg-muted" />
+                    )}
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                      <Languages className="h-4 w-4" />
+                      {tCommon("language")}
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuRadioGroup value={locale} onValueChange={setLocale}>
+                        <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="de">Deutsch</DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                      <Sun className="h-4 w-4" />
+                      {tCommon("theme")}
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuRadioGroup value={theme ?? "system"} onValueChange={setTheme}>
+                        <DropdownMenuRadioItem value="light">
+                          <Sun className="h-4 w-4" />
+                          {tCommon("light")}
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="dark">
+                          <Moon className="h-4 w-4" />
+                          {tCommon("dark")}
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="system">
+                          <Monitor className="h-4 w-4" />
+                          {tCommon("system")}
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                  >
+                    <LogOut className="h-4 w-4" />
+                    {tCommon("signOut")}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           ) : (
-            <Button size="sm" onClick={() => signIn("google", { callbackUrl: "/dashboard" })}>
-              Sign in
-            </Button>
+            <>
+              <Button size="sm" onClick={() => signIn("google", { callbackUrl: "/dashboard" })}>
+                {t("signIn")}
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label={tCommon("theme")}>
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                      <Languages className="h-4 w-4" />
+                      {tCommon("language")}
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuRadioGroup value={locale} onValueChange={setLocale}>
+                        <DropdownMenuRadioItem value="en">English</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="de">Deutsch</DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                  <DropdownMenuSub>
+                    <DropdownMenuSubTrigger>
+                      <Sun className="h-4 w-4" />
+                      {tCommon("theme")}
+                    </DropdownMenuSubTrigger>
+                    <DropdownMenuSubContent>
+                      <DropdownMenuRadioGroup value={theme ?? "system"} onValueChange={setTheme}>
+                        <DropdownMenuRadioItem value="light">
+                          <Sun className="h-4 w-4" />
+                          {tCommon("light")}
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="dark">
+                          <Moon className="h-4 w-4" />
+                          {tCommon("dark")}
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="system">
+                          <Monitor className="h-4 w-4" />
+                          {tCommon("system")}
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuSubContent>
+                  </DropdownMenuSub>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
           )}
         </nav>
       </div>

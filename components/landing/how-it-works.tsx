@@ -1,38 +1,26 @@
 "use client"
 
 import { motion } from "framer-motion"
-
-const steps = [
-  {
-    number: "01",
-    title: "Create & add items",
-    description:
-      "Set up your wishlist and add items by pasting URLs or manually. Set a deadline for special occasions.",
-  },
-  {
-    number: "02",
-    title: "Share the link",
-    description:
-      "Copy your unique link and send it to friends or family. They don't need an account to see your list.",
-  },
-  {
-    number: "03",
-    title: "Friends claim gifts",
-    description:
-      "Friends sign in to claim what they're buying. You'll receive no duplicates—everyone sees what's taken.",
-  },
-]
+import { useTranslations } from "next-intl"
 
 export function HowItWorks() {
+  const t = useTranslations("landing.howItWorks")
+
+  const steps = [
+    { number: "01", title: t("step1Title"), description: t("step1Desc") },
+    { number: "02", title: t("step2Title"), description: t("step2Desc") },
+    { number: "03", title: t("step3Title"), description: t("step3Desc") },
+  ]
+
   return (
     <section className="bg-muted/30 py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="mb-16 text-center">
           <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-            How it works
+            {t("heading")}
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Up and running in under two minutes.
+            {t("subheading")}
           </p>
         </div>
 

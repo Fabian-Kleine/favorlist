@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Gift } from "lucide-react"
 import { claimWishlistItem, unclaimWishlistItem } from "@/app/actions/items"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 type ClaimButtonProps = {
   itemId: string
@@ -22,6 +23,7 @@ export function ClaimButton({
   claimedByImage,
   currentUserId,
 }: ClaimButtonProps) {
+  const t = useTranslations("items")
   const [optimisticClaimer, setOptimisticClaimer] = useOptimistic(claimedByUserId)
   const [isPending, startTransition] = useTransition()
 
@@ -43,7 +45,9 @@ export function ClaimButton({
         ) : (
           <div className="h-5 w-5 rounded-full bg-muted" />
         )}
-        <span>{claimedByName ?? "Someone"} is on it</span>
+        <span>
+          {claimedByName ? t("isOnIt", { name: claimedByName }) : t("someoneIsOnIt")}
+        </span>
       </div>
     )
   }
@@ -60,12 +64,12 @@ export function ClaimButton({
             try {
               await unclaimWishlistItem(itemId)
             } catch {
-              toast.error("Failed to unclaim item")
+              toast.error(t("unclaimFailed"))
             }
           })
         }
       >
-        Undo claim
+        {t("undoClaim")}
       </Button>
     )
   }
@@ -84,13 +88,13 @@ export function ClaimButton({
           try {
             await claimWishlistItem(itemId)
           } catch {
-            toast.error("Failed to claim item")
+            toast.error(t("claimFailed"))
           }
         })
       }}
     >
       <Gift className="mr-1.5 h-3.5 w-3.5" />
-      {currentUserId ? "I'll buy this 🎁" : "Sign in to claim"}
+      {currentUserId ? t("illBuyThis") : t("signInToClaim")}
     </Button>
   )
 }

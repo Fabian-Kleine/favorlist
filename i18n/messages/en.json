@@ -1,0 +1,160 @@
+{
+  "common": {
+    "signOut": "Sign out",
+    "share": "Share",
+    "cancel": "Cancel",
+    "back": "Back",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "shareLinkCopied": "Share link copied!",
+    "copyFailed": "Could not copy link",
+    "shareTitle": "{title} — Favorlist",
+    "shareTitleFallback": "Favorlist wishlist",
+    "shareText": "Check out {title} on Favorlist!",
+    "shareTextFallback": "Check out this wishlist on Favorlist!"
+  },
+  "landing": {
+    "navbar": {
+      "dashboard": "Dashboard",
+      "signIn": "Sign in"
+    },
+    "hero": {
+      "badge": "Share wishlists with anyone",
+      "headline1": "Wishlists your friends",
+      "headline2": "actually use",
+      "description": "Create a wishlist, share the link, and let friends claim items so there\u2019s no duplicate gifts. No app download required.",
+      "cta": "Create your wishlist",
+      "learnMore": "See how it works"
+    },
+    "features": {
+      "heading": "Everything you need",
+      "subheading": "Simple tools to make gift-giving effortless for everyone.",
+      "shareTitle": "Share with anyone",
+      "shareDesc": "Generate a public link and share it via text, email, or social media. No account needed to view.",
+      "claimTitle": "Claim items",
+      "claimDesc": "Friends sign in to claim what they\u2019re buying. No more awkward conversations about who got what.",
+      "autofillTitle": "Auto-fill from URL",
+      "autofillDesc": "Paste any product URL and we\u2019ll automatically pull the title, description, and image for you."
+    },
+    "howItWorks": {
+      "heading": "How it works",
+      "subheading": "Up and running in under two minutes.",
+      "step1Title": "Create & add items",
+      "step1Desc": "Set up your wishlist and add items by pasting URLs or manually. Set a deadline for special occasions.",
+      "step2Title": "Share the link",
+      "step2Desc": "Copy your unique link and send it to friends or family. They don\u2019t need an account to see your list.",
+      "step3Title": "Friends claim gifts",
+      "step3Desc": "Friends sign in to claim what they\u2019re buying. You\u2019ll receive no duplicates\u2014everyone sees what\u2019s taken."
+    },
+    "cta": {
+      "heading": "Ready to make gifting easy?",
+      "description": "Create your first wishlist in seconds. Free, forever.",
+      "button": "Get started free"
+    },
+    "footer": {
+      "rights": "\u00a9 {year} Favorlist. All rights reserved."
+    }
+  },
+  "dashboard": {
+    "title": "My Wishlists",
+    "subtitle": "Manage and share your wishlists",
+    "newWishlist": "New wishlist",
+    "emptyTitle": "No wishlists yet",
+    "emptyDesc": "Create your first wishlist and start sharing with friends and family.",
+    "emptyBtn": "Create your first wishlist"
+  },
+  "wishlists": {
+    "back": "Back",
+    "createTitle": "Create a wishlist",
+    "dashboard": "Dashboard",
+    "noItems": "No items yet. Add your first item!",
+    "items": "{count, plural, one {# item} other {# items}}",
+    "claimed": "{count} claimed",
+    "form": {
+      "titleLabel": "Title *",
+      "titlePlaceholder": "e.g. Birthday Wishlist 2025",
+      "titleRequired": "Title is required",
+      "titleMax": "Max 100 characters",
+      "descLabel": "Description",
+      "descPlaceholder": "Any notes for your friends...",
+      "descMax": "Max 500 characters",
+      "deadlineLabel": "Deadline (optional)",
+      "deadlinePlaceholder": "No deadline set",
+      "publicLabel": "Public wishlist",
+      "publicDesc": "Anyone with the link can view this list",
+      "creating": "Creating...",
+      "create": "Create wishlist",
+      "failedToCreate": "Failed to create wishlist"
+    },
+    "card": {
+      "share": "Share",
+      "edit": "Edit",
+      "deleteTitle": "Delete wishlist?",
+      "deleteDesc": "This will permanently delete \"{title}\" and all its items. This action cannot be undone.",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "copied": "Link copied to clipboard!",
+      "deleted": "Wishlist deleted",
+      "deleteFailed": "Failed to delete"
+    }
+  },
+  "items": {
+    "addItem": "Add item",
+    "addItemTitle": "Add an item",
+    "urlLabel": "Product URL (optional)",
+    "urlPlaceholder": "https://example.com/product",
+    "titleLabel": "Title *",
+    "titlePlaceholder": "Item name",
+    "titleRequired": "Title is required",
+    "titleMax": "Max 200 characters",
+    "descLabel": "Description",
+    "descPlaceholder": "Optional notes...",
+    "priceLabel": "Price",
+    "pricePlaceholder": "$0.00",
+    "imageLabel": "Image",
+    "imagePlaceholder": "Image URL",
+    "imageAlt": "Preview",
+    "cancel": "Cancel",
+    "adding": "Adding...",
+    "add": "Add item",
+    "uploadFailed": "Upload failed",
+    "added": "Item added!",
+    "addFailed": "Failed to add item",
+    "view": "View",
+    "claimedBy": "Claimed by {name}",
+    "removed": "Item removed",
+    "removeFailed": "Failed to remove item",
+    "unclaimFailed": "Failed to unclaim item",
+    "claimFailed": "Failed to claim item",
+    "undoClaim": "Undo claim",
+    "illBuyThis": "I\u2019ll buy this \ud83c\udf81",
+    "signInToClaim": "Sign in to claim",
+    "isOnIt": "{name} is on it",
+    "someoneIsOnIt": "Someone is on it"
+  },
+  "share": {
+    "wishlistBy": "Wishlist by",
+    "someone": "Someone",
+    "noItems": "No items on this wishlist yet.",
+    "viewProduct": "View product \u2192",
+    "poweredBy": "Powered by",
+    "items": "{count, plural, one {# item} other {# items}}",
+    "claimed": "{count} claimed"
+  },
+  "login": {
+    "title": "Welcome to Favorlist",
+    "description": "Create and share wishlists with the people who matter.",
+    "continueWithGoogle": "Continue with Google"
+  },
+  "deadline": {
+    "passed": "Deadline passed",
+    "days": "days",
+    "hrs": "hrs",
+    "min": "min",
+    "sec": "Sec",
+    "remaining": "Remaining"
+  }
+}

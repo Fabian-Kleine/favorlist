@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Trash2, ExternalLink } from "lucide-react"
 import { deleteWishlistItem } from "@/app/actions/items"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 type OwnerItemRowProps = {
   item: {
@@ -20,15 +21,16 @@ type OwnerItemRowProps = {
 }
 
 export function OwnerItemRow({ item }: OwnerItemRowProps) {
+  const t = useTranslations("items")
   const [isPending, startTransition] = useTransition()
 
   function handleDelete() {
     startTransition(async () => {
       try {
         await deleteWishlistItem(item.id)
-        toast.success("Item removed")
+        toast.success(t("removed"))
       } catch {
-        toast.error("Failed to remove item")
+        toast.error(t("removeFailed"))
       }
     })
   }
@@ -55,13 +57,13 @@ export function OwnerItemRow({ item }: OwnerItemRowProps) {
           </div>
           <div className="flex shrink-0 items-center gap-1.5">
             {item.price && (
-              <Badge variant="secondary" className="text-xs">
-                {item.price}
+              <Badge variant="outline" className="text-xs font-semibold text-foreground">
+                € {item.price}
               </Badge>
             )}
             {item.claimedByName && (
               <Badge className="text-xs">
-                Claimed by {item.claimedByName}
+                {t("claimedBy", { name: item.claimedByName })}
               </Badge>
             )}
           </div>
@@ -71,7 +73,7 @@ export function OwnerItemRow({ item }: OwnerItemRowProps) {
             <a href={item.url} target="_blank" rel="noopener noreferrer">
               <Button variant="ghost" size="sm" className="h-7 gap-1 px-2 text-xs">
                 <ExternalLink className="h-3 w-3" />
-                View
+                {t("view")}
               </Button>
             </a>
           )}

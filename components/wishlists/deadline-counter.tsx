@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 type TimeLeft = {
   days: number
@@ -52,6 +53,7 @@ type DeadlineCounterProps = {
 }
 
 export function DeadlineCounter({ deadline, inline }: DeadlineCounterProps) {
+  const t = useTranslations("deadline")
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(
     getTimeLeft(deadline)
   )
@@ -67,18 +69,24 @@ export function DeadlineCounter({ deadline, inline }: DeadlineCounterProps) {
     return (
       <Badge variant="destructive" className="gap-1">
         <Clock className="h-3 w-3" />
-        Deadline passed
+        {t("passed")}
       </Badge>
     )
   }
 
   if (inline) {
     return (
-      <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-        <Clock className="h-3 w-3" />
-        {timeLeft.days}d {String(timeLeft.hours).padStart(2, "0")}h{" "}
-        {String(timeLeft.minutes).padStart(2, "0")}m
-      </span>
+      <div className="flex w-full items-center justify-between rounded-lg bg-orange-100/60 px-3 py-2.5 text-sm text-orange-950 dark:bg-orange-950/40 dark:text-orange-200">
+        <div className="flex items-center gap-1.5 font-medium">
+          <Clock className="h-4 w-4 text-orange-500 dark:text-orange-400" />
+          <span>
+            {timeLeft.days}d {String(timeLeft.hours).padStart(2, "0")}h {String(timeLeft.minutes).padStart(2, "0")}m
+          </span>
+        </div>
+        <span className="text-xs font-semibold tracking-wide text-orange-500/80 dark:text-orange-400/80 uppercase">
+          {t("remaining")}
+        </span>
+      </div>
     )
   }
 
@@ -86,13 +94,13 @@ export function DeadlineCounter({ deadline, inline }: DeadlineCounterProps) {
     <div className="flex items-center gap-1">
       <Clock className="h-3.5 w-3.5 text-muted-foreground" />
       <div className="flex items-center gap-1.5">
-        <Digit value={timeLeft.days} label="days" />
+        <Digit value={timeLeft.days} label={t("days")} />
         <span className="mb-3 text-muted-foreground">:</span>
-        <Digit value={timeLeft.hours} label="hrs" />
+        <Digit value={timeLeft.hours} label={t("hrs")} />
         <span className="mb-3 text-muted-foreground">:</span>
-        <Digit value={timeLeft.minutes} label="min" />
+        <Digit value={timeLeft.minutes} label={t("min")} />
         <span className="mb-3 text-muted-foreground">:</span>
-        <Digit value={timeLeft.seconds} label="sec" />
+        <Digit value={timeLeft.seconds} label={t("sec")} />
       </div>
     </div>
   )

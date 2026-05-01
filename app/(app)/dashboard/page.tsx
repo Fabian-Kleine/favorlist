@@ -7,10 +7,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { WishlistCard } from "@/components/wishlists/wishlist-card"
 import { Gift, Plus } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 
 export default async function DashboardPage() {
   const session = await auth()
   if (!session?.user?.id) redirect("/login")
+
+  const t = await getTranslations("dashboard")
 
   const rows = await db
     .select({
@@ -33,15 +36,15 @@ export default async function DashboardPage() {
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <h1 className="font-heading text-2xl font-bold">My Wishlists</h1>
+          <h1 className="font-heading text-2xl font-bold">{t("title")}</h1>
           <p className="text-sm text-muted-foreground">
-            Manage and share your wishlists
+            {t("subtitle")}
           </p>
         </div>
         <Link href="/wishlists/new">
           <Button className="gap-2">
             <Plus className="h-4 w-4" />
-            New wishlist
+            {t("newWishlist")}
           </Button>
         </Link>
       </div>
@@ -51,19 +54,19 @@ export default async function DashboardPage() {
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
             <Gift className="h-7 w-7 text-muted-foreground" />
           </div>
-          <h2 className="mb-2 font-semibold">No wishlists yet</h2>
+          <h2 className="mb-2 font-semibold">{t("emptyTitle")}</h2>
           <p className="mb-6 max-w-xs text-sm text-muted-foreground">
-            Create your first wishlist and start sharing with friends and family.
+            {t("emptyDesc")}
           </p>
           <Link href="/wishlists/new">
             <Button className="gap-2">
               <Plus className="h-4 w-4" />
-              Create your first wishlist
+              {t("emptyBtn")}
             </Button>
           </Link>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-2">
           {rows.map((row) => (
             <WishlistCard
               key={row.id}

@@ -1,0 +1,158 @@
+{
+  "common": {
+    "signOut": "Abmelden",
+    "share": "Teilen",
+    "cancel": "Abbrechen",
+    "back": "Zur\u00fcck",    "language": "Sprache",
+    "theme": "Erscheinungsbild",
+    "light": "Hell",
+    "dark": "Dunkel",
+    "system": "System",    "shareLinkCopied": "Link kopiert!",
+    "copyFailed": "Link konnte nicht kopiert werden",
+    "shareTitle": "{title} \u2014 Favorlist",
+    "shareTitleFallback": "Favorlist-Wunschliste",
+    "shareText": "Schau dir {title} auf Favorlist an!",
+    "shareTextFallback": "Schau dir diese Wunschliste auf Favorlist an!"
+  },
+  "landing": {
+    "navbar": {
+      "dashboard": "Dashboard",
+      "signIn": "Anmelden"
+    },
+    "hero": {
+      "badge": "Wunschlisten mit jedem teilen",
+      "headline1": "Wunschlisten, die deine Freunde",
+      "headline2": "wirklich nutzen",
+      "description": "Erstelle eine Wunschliste, teile den Link und lass Freunde Artikel reservieren \u2013 keine doppelten Geschenke mehr. Kein App-Download erforderlich.",
+      "cta": "Wunschliste erstellen",
+      "learnMore": "So funktioniert es"
+    },
+    "features": {
+      "heading": "Alles was du brauchst",
+      "subheading": "Einfache Tools, um das Schenken f\u00fcr alle unkompliziert zu machen.",
+      "shareTitle": "Mit jedem teilen",
+      "shareDesc": "Erstelle einen \u00f6ffentlichen Link und teile ihn per SMS, E-Mail oder Social Media. Kein Konto zum Ansehen erforderlich.",
+      "claimTitle": "Artikel reservieren",
+      "claimDesc": "Freunde melden sich an, um zu reservieren, was sie kaufen. Keine unangenehmen Gespr\u00e4che mehr dar\u00fcber, wer was besorgt.",
+      "autofillTitle": "Auto-Ausf\u00fcllen per URL",
+      "autofillDesc": "F\u00fcge eine Produkt-URL ein und wir holen automatisch Titel, Beschreibung und Bild f\u00fcr dich."
+    },
+    "howItWorks": {
+      "heading": "So funktioniert es",
+      "subheading": "In unter zwei Minuten startklar.",
+      "step1Title": "Erstellen & Artikel hinzuf\u00fcgen",
+      "step1Desc": "Richte deine Wunschliste ein und f\u00fcge Artikel durch Einf\u00fcgen von URLs oder manuell hinzu. Setze eine Frist f\u00fcr besondere Anl\u00e4sse.",
+      "step2Title": "Link teilen",
+      "step2Desc": "Kopiere deinen einzigartigen Link und sende ihn an Freunde oder Familie. Sie brauchen kein Konto, um deine Liste zu sehen.",
+      "step3Title": "Freunde reservieren Geschenke",
+      "step3Desc": "Freunde melden sich an, um zu reservieren, was sie kaufen. Du erh\u00e4ltst keine Duplikate \u2013 jeder sieht, was bereits vergeben ist."
+    },
+    "cta": {
+      "heading": "Bereit, Schenken einfach zu machen?",
+      "description": "Erstelle deine erste Wunschliste in Sekunden. Kostenlos, f\u00fcr immer.",
+      "button": "Jetzt kostenlos starten"
+    },
+    "footer": {
+      "rights": "\u00a9 {year} Favorlist. Alle Rechte vorbehalten."
+    }
+  },
+  "dashboard": {
+    "title": "Meine Wunschlisten",
+    "subtitle": "Wunschlisten verwalten und teilen",
+    "newWishlist": "Neue Wunschliste",
+    "emptyTitle": "Noch keine Wunschlisten",
+    "emptyDesc": "Erstelle deine erste Wunschliste und fang an, sie mit Freunden und Familie zu teilen.",
+    "emptyBtn": "Erste Wunschliste erstellen"
+  },
+  "wishlists": {
+    "back": "Zur\u00fcck",
+    "createTitle": "Wunschliste erstellen",
+    "dashboard": "Dashboard",
+    "noItems": "Noch keine Artikel. F\u00fcge deinen ersten Artikel hinzu!",
+    "items": "{count, plural, one {# Artikel} other {# Artikel}}",
+    "claimed": "{count} reserviert",
+    "form": {
+      "titleLabel": "Titel *",
+      "titlePlaceholder": "z.\u202fB. Geburtstagswünsche 2025",
+      "titleRequired": "Titel ist erforderlich",
+      "titleMax": "Max. 100 Zeichen",
+      "descLabel": "Beschreibung",
+      "descPlaceholder": "Hinweise f\u00fcr deine Freunde...",
+      "descMax": "Max. 500 Zeichen",
+      "deadlineLabel": "Frist (optional)",
+      "deadlinePlaceholder": "Keine Frist gesetzt",
+      "publicLabel": "\u00d6ffentliche Wunschliste",
+      "publicDesc": "Jeder mit dem Link kann diese Liste ansehen",
+      "creating": "Wird erstellt...",
+      "create": "Wunschliste erstellen",
+      "failedToCreate": "Wunschliste konnte nicht erstellt werden"
+    },
+    "card": {
+      "share": "Teilen",
+      "edit": "Bearbeiten",
+      "deleteTitle": "Wunschliste l\u00f6schen?",
+      "deleteDesc": "Dadurch wird \"{title}\" und alle Artikel dauerhaft gel\u00f6scht. Diese Aktion kann nicht r\u00fcckg\u00e4ngig gemacht werden.",
+      "cancel": "Abbrechen",
+      "delete": "L\u00f6schen",
+      "copied": "Link in die Zwischenablage kopiert!",
+      "deleted": "Wunschliste gel\u00f6scht",
+      "deleteFailed": "L\u00f6schen fehlgeschlagen"
+    }
+  },
+  "items": {
+    "addItem": "Artikel hinzuf\u00fcgen",
+    "addItemTitle": "Artikel hinzuf\u00fcgen",
+    "urlLabel": "Produkt-URL (optional)",
+    "urlPlaceholder": "https://beispiel.de/produkt",
+    "titleLabel": "Titel *",
+    "titlePlaceholder": "Artikelname",
+    "titleRequired": "Titel ist erforderlich",
+    "titleMax": "Max. 200 Zeichen",
+    "descLabel": "Beschreibung",
+    "descPlaceholder": "Optionale Notizen...",
+    "priceLabel": "Preis",
+    "pricePlaceholder": "0,00\u00a0\u20ac",
+    "imageLabel": "Bild",
+    "imagePlaceholder": "Bild-URL",
+    "imageAlt": "Vorschau",
+    "cancel": "Abbrechen",
+    "adding": "Wird hinzugef\u00fcgt...",
+    "add": "Artikel hinzuf\u00fcgen",
+    "uploadFailed": "Upload fehlgeschlagen",
+    "added": "Artikel hinzugef\u00fcgt!",
+    "addFailed": "Artikel konnte nicht hinzugef\u00fcgt werden",
+    "view": "Ansehen",
+    "claimedBy": "Reserviert von {name}",
+    "removed": "Artikel entfernt",
+    "removeFailed": "Artikel konnte nicht entfernt werden",
+    "unclaimFailed": "Reservierung konnte nicht aufgehoben werden",
+    "claimFailed": "Reservierung fehlgeschlagen",
+    "undoClaim": "Reservierung aufheben",
+    "illBuyThis": "Ich kaufe das \ud83c\udf81",
+    "signInToClaim": "Anmelden zum Reservieren",
+    "isOnIt": "{name} k\u00fcmmert sich darum",
+    "someoneIsOnIt": "Jemand k\u00fcmmert sich darum"
+  },
+  "share": {
+    "wishlistBy": "Wunschliste von",
+    "someone": "Jemand",
+    "noItems": "Noch keine Artikel auf dieser Wunschliste.",
+    "viewProduct": "Produkt ansehen \u2192",
+    "poweredBy": "Bereitgestellt von",
+    "items": "{count, plural, one {# Artikel} other {# Artikel}}",
+    "claimed": "{count} reserviert"
+  },
+  "login": {
+    "title": "Willkommen bei Favorlist",
+    "description": "Erstelle und teile Wunschlisten mit den Menschen, die dir wichtig sind.",
+    "continueWithGoogle": "Mit Google fortfahren"
+  },
+  "deadline": {
+    "passed": "Frist abgelaufen",
+    "days": "Tage",
+    "hrs": "Std",
+    "min": "Min",
+    "sec": "Sek",
+    "remaining": "Verbleibend"
+  }
+}

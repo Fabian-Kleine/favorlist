@@ -10,6 +10,7 @@ import { DeadlineCounter } from "@/components/wishlists/deadline-counter"
 import { ClaimButton } from "@/components/wishlists/claim-button"
 import { Gift } from "lucide-react"
 import Link from "next/link"
+import { getTranslations } from "next-intl/server"
 
 export default async function SharePage({
   params,
@@ -39,6 +40,7 @@ export default async function SharePage({
 
   if (!wishlist || !wishlist.isPublic) notFound()
 
+  const t = await getTranslations("share")
   const currentUserId = session?.user?.id ?? null
 
   return (
@@ -59,8 +61,8 @@ export default async function SharePage({
           </div>
         )}
         <div>
-          <p className="text-sm text-muted-foreground">Wishlist by</p>
-          <p className="font-semibold">{wishlist.user.name ?? "Someone"}</p>
+          <p className="text-sm text-muted-foreground">{t("wishlistBy")}</p>
+          <p className="font-semibold">{wishlist.user.name ?? t("someone")}</p>
         </div>
       </div>
 
@@ -79,11 +81,10 @@ export default async function SharePage({
 
       <div className="mb-2 flex items-center justify-between">
         <p className="text-sm text-muted-foreground">
-          {wishlist.items.length}{" "}
-          {wishlist.items.length === 1 ? "item" : "items"}
+          {t("items", { count: wishlist.items.length })}
         </p>
         <Badge variant="secondary">
-          {wishlist.items.filter((i) => i.claimedByUserId).length} claimed
+          {t("claimed", { count: wishlist.items.filter((i) => i.claimedByUserId).length })}
         </Badge>
       </div>
 
@@ -91,7 +92,7 @@ export default async function SharePage({
 
       {wishlist.items.length === 0 ? (
         <div className="py-16 text-center text-muted-foreground">
-          No items on this wishlist yet.
+          {t("noItems")}
         </div>
       ) : (
         <div className="space-y-3">
@@ -125,8 +126,8 @@ export default async function SharePage({
                     )}
                   </div>
                   {item.price && (
-                    <Badge variant="secondary" className="shrink-0 text-xs">
-                      {item.price}
+                    <Badge variant="outline" className="shrink-0 text-xs font-semibold text-foreground">
+                      € {item.price}
                     </Badge>
                   )}
                 </div>
@@ -138,7 +139,7 @@ export default async function SharePage({
                       rel="noopener noreferrer"
                       className="text-xs text-primary hover:underline"
                     >
-                      View product →
+                      {t("viewProduct")}
                     </a>
                   )}
                   <div className="ml-auto">
@@ -159,7 +160,7 @@ export default async function SharePage({
 
       <div className="mt-10 text-center">
         <p className="text-xs text-muted-foreground">
-          Powered by{" "}
+          {t("poweredBy")}{" "}
           <Link href="/" className="text-primary hover:underline">
             Favorlist
           </Link>

@@ -1,4 +1,6 @@
-import { Geist, Geist_Mono, Montserrat, Lora } from "next/font/google"
+import { Geist_Mono, Montserrat, Lora } from "next/font/google"
+import { NextIntlClientProvider } from "next-intl"
+import { getLocale, getMessages } from "next-intl/server"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -14,21 +16,26 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
   return (
     <html
-      lang="en"
+      lang={locale}
       suppressHydrationWarning
       className={cn("antialiased", fontMono.variable, "font-sans", montserrat.variable, loraHeading.variable)}
     >
       <body>
         <ThemeProvider>
-          {children}
-          <Toaster richColors />
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            {children}
+            <Toaster richColors />
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>

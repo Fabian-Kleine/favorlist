@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button"
 import { Share2 } from "lucide-react"
 import { toast } from "sonner"
+import { useTranslations } from "next-intl"
 
 export function ShareButton({ slug, title }: { slug: string; title?: string }) {
+  const t = useTranslations("common")
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
   const url = `${appUrl}/wishlists/${slug}/share`
 
@@ -12,10 +14,8 @@ export function ShareButton({ slug, title }: { slug: string; title?: string }) {
     if (typeof navigator.share === "function") {
       try {
         await navigator.share({
-          title: title ? `${title} — Favorlist` : "Favorlist wishlist",
-          text: title
-            ? `Check out ${title} on Favorlist!`
-            : "Check out this wishlist on Favorlist!",
+          title: title ? t("shareTitle", { title }) : t("shareTitleFallback"),
+          text: title ? t("shareText", { title }) : t("shareTextFallback"),
           url,
         })
         return
@@ -27,16 +27,16 @@ export function ShareButton({ slug, title }: { slug: string; title?: string }) {
     // Fallback: copy to clipboard
     try {
       await navigator.clipboard.writeText(url)
-      toast.success("Share link copied!")
+      toast.success(t("shareLinkCopied"))
     } catch {
-      toast.error("Could not copy link")
+      toast.error(t("copyFailed"))
     }
   }
 
   return (
     <Button variant="outline" size="sm" className="gap-1.5" onClick={handleShare}>
       <Share2 className="h-3.5 w-3.5" />
-      Share
+      {t("share")}
     </Button>
   )
 }
