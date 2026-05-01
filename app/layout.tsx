@@ -6,6 +6,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
+import { Metadata } from "next"
 
 const loraHeading = Lora({subsets:['latin'],variable:'--font-heading'});
 
@@ -15,6 +16,11 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  title: "Favorlist",
+  description: "A wishlist app for your favorite products.",
+}
 
 export default async function RootLayout({
   children,
