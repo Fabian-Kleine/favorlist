@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"d:\\\\webapps\\\\favorlist\" -Recurse -Force)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(find d:\\\\\\\\webapps\\\\\\\\favorlist -type f -o -type d)",
+      "Bash(find d:\\\\\\\\webapps\\\\\\\\favorlist -maxdepth 1 -name \"next.config.*\" -o -name \".env*\")",
+      "Bash(find d:\\\\\\\\webapps\\\\\\\\favorlist -name \"tailwind.config.*\")",
+      "Bash(find d:\\\\\\\\webapps\\\\\\\\favorlist -type f -not -path \"*/node_modules/*\" -not -path \"*/.next/*\")",
+      "Bash(pnpm add *)",
+      "Bash(node -e \"console.log\\(require\\('crypto'\\).randomBytes\\(32\\).toString\\('base64url'\\)\\)\")",
+      "Bash(pnpm dlx *)",
+      "Bash(pnpm db:generate)",
+      "PowerShell(pnpm db:migrate 2>&1)",
+      "PowerShell(pnpm typecheck 2>&1)",
+      "PowerShell(pnpm dev 2>&1)",
+      "PowerShell(pnpm dlx shadcn@latest add calendar popover --yes 2>&1)"
+    ]
+  }
+}

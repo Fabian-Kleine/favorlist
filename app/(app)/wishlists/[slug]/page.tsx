@@ -1,0 +1,115 @@
+import { auth } from "@/lib/auth"
+import { notFound, redirect } from "next/navigation"
+import { db } from "@/db"
+import { wishlists } from "@/db/schema"
+import { eq } from "drizzle-orm"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { AddItemDialog } from "@/components/wishlists/add-item-dialog"
+import { DeadlineCounter } from "@/components/wishlists/deadline-counter"
+import { OwnerItemRow } from "@/components/wishlists/owner-item-row"
+import { Share2, ArrowLeft, Globe, Lock } from "lucide-react"
+import { ShareButton } from "@/components/wishlists/share-button"
+
+export default async function OwnerWishlistPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = await params
+  const session = await auth()
+  if (!session?.user?.id) redirect("/login")
+
+  const wishlist = await db.query.wishlists.findFirst({
+    where: eq(wishlists.slug, slug),
+    with: {
+      items: {
+        orderBy: (items, { asc }) => [asc(items.sortOrder), asc(items.createdAt)],
+        with: {
+          claimedBy: true,
+        },
+      },
+    },
+  })
+
+  if (!wishlist || wishlist.userId !== session.user.id) notFound()
+
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
+      <div className="mb-6 flex items-center gap-2">
+        <Link href="/dashboard">
+          <Button variant="ghost" size="sm" className="gap-1.5">
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Dashboard
+          </Button>
+        </Link>
+      </div>
+
+      <div className="mb-6 flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <div className="mb-1 flex items-center gap-2">
+            <h1 className="font-heading truncate text-2xl font-bold">
+              {wishlist.title}
+            </h1>
+            {wishlist.isPublic ? (
+              <Globe className="h-4 w-4 shrink-0 text-muted-foreground" />
+            ) : (
+              <Lock className="h-4 w-4 shrink-0 text-muted-foreground" />
+            )}
+          </div>
+          {wishlist.description && (
+            <p className="text-sm text-muted-foreground">{wishlist.description}</p>
+          )}
+          {wishlist.deadline && (
+            <div className="mt-3">
+              <DeadlineCounter deadline={wishlist.deadline} />
+            </div>
+          )}
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <ShareButton slug={slug} title={wishlist.title} />
+          <AddItemDialog wishlistId={wishlist.id} />
+        </div>
+      </div>
+
+      <Separator className="mb-6" />
+
+      {wishlist.items.length === 0 ? (
+        <div className="py-16 text-center">
+          <p className="mb-4 text-muted-foreground">
+            No items yet. Add your first item!
+          </p>
+          <AddItemDialog wishlistId={wishlist.id} />
+        </div>
+      ) : (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              {wishlist.items.length}{" "}
+              {wishlist.items.length === 1 ? "item" : "items"}
+            </p>
+            <Badge variant="secondary">
+              {wishlist.items.filter((i) => i.claimedByUserId).length} claimed
+            </Badge>
+          </div>
+          {wishlist.items.map((item) => (
+            <OwnerItemRow
+              key={item.id}
+              item={{
+                id: item.id,
+                title: item.title,
+                description: item.description,
+                imageUrl: item.imageUrl,
+                price: item.price,
+                url: item.url,
+                claimedByName: item.claimedBy?.name ?? null,
+              }}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
