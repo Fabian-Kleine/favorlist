@@ -107,11 +107,9 @@ export function WishlistCard({
             </span>
           </div>
         </div>
-        {description && (
-          <p className="text-xs text-muted-foreground line-clamp-2">
-            {description}
-          </p>
-        )}
+        <p className={`text-xs text-muted-foreground line-clamp-2${!description ? " invisible" : ""}`}>
+          {description ?? " "}
+        </p>
       </CardHeader>
 
       <CardContent className="flex flex-1 flex-col justify-between gap-4 px-5 pb-5">

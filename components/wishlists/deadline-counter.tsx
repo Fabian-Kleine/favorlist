@@ -66,6 +66,16 @@ export function DeadlineCounter({ deadline, inline }: DeadlineCounterProps) {
   }, [deadline])
 
   if (!timeLeft) {
+    if (inline) {
+      return (
+        <div className="flex w-full items-center rounded-lg bg-red-100/60 px-3 py-2.5 text-sm text-red-950 dark:bg-red-950/40 dark:text-red-200">
+          <div className="flex items-center gap-1.5 font-medium">
+            <Clock className="h-4 w-4 text-red-500 dark:text-red-400" />
+            <span>{t("passed")}</span>
+          </div>
+        </div>
+      )
+    }
     return (
       <Badge variant="destructive" className="gap-1">
         <Clock className="h-3 w-3" />
