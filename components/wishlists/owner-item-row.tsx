@@ -7,6 +7,7 @@ import { Trash2, ExternalLink } from "lucide-react"
 import { deleteWishlistItem } from "@/app/actions/items"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
+import { cn } from "@/lib/utils"
 
 type OwnerItemRowProps = {
   item: {
@@ -18,13 +19,19 @@ type OwnerItemRowProps = {
     url?: string | null
     claimedByName?: string | null
   }
+  onDelete?: () => void
+  isPending?: boolean
 }
 
-export function OwnerItemRow({ item }: OwnerItemRowProps) {
+export function OwnerItemRow({ item, onDelete, isPending: isOptimisticPending }: OwnerItemRowProps) {
   const t = useTranslations("items")
   const [isPending, startTransition] = useTransition()
 
   function handleDelete() {
+    if (onDelete) {
+      onDelete()
+      return
+    }
     startTransition(async () => {
       try {
         await deleteWishlistItem(item.id)
@@ -36,7 +43,7 @@ export function OwnerItemRow({ item }: OwnerItemRowProps) {
   }
 
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-border/50 bg-card p-4">
+    <div className={cn("flex items-start gap-3 rounded-xl border border-border/50 bg-card p-4 transition-opacity", isOptimisticPending && "opacity-60")}>
       {item.imageUrl && (
         // eslint-disable-next-line @next/next/no-img-element
         <img

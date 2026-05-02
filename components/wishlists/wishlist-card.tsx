@@ -3,7 +3,6 @@
 import { useState, useTransition } from "react"
 import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   AlertDialog,
@@ -30,6 +29,7 @@ type WishlistCardProps = {
   isPublic: boolean
   deadline?: Date | null
   itemCount: number
+  onDelete?: () => void
 }
 
 export function WishlistCard({
@@ -40,6 +40,7 @@ export function WishlistCard({
   isPublic,
   deadline,
   itemCount,
+  onDelete,
 }: WishlistCardProps) {
   const t = useTranslations("wishlists.card")
   const tW = useTranslations("wishlists")
@@ -71,12 +72,18 @@ export function WishlistCard({
   }
 
   function handleDelete() {
+    if (onDelete) {
+      onDelete()
+      setDeleteOpen(false)
+      return
+    }
     startTransition(async () => {
       try {
         await deleteWishlist(id)
-        toast.success(t("deleted"))
-      } catch {
-        toast.error(t("deleteFailed"))
+      } catch (err) {
+        if (err instanceof Error && !err.message.includes("NEXT_REDIRECT")) {
+          toast.error(t("deleteFailed"))
+        }
       }
     })
     setDeleteOpen(false)

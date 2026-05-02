@@ -5,8 +5,8 @@ import { wishlists, wishlistItems } from "@/db/schema"
 import { eq, count, desc } from "drizzle-orm"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { WishlistCard } from "@/components/wishlists/wishlist-card"
-import { Gift, Plus } from "lucide-react"
+import { DashboardWishlists } from "@/components/wishlists/dashboard-wishlists"
+import { Plus } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
 export default async function DashboardPage() {
@@ -49,38 +49,7 @@ export default async function DashboardPage() {
         </Link>
       </div>
 
-      {rows.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-20 text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
-            <Gift className="h-7 w-7 text-muted-foreground" />
-          </div>
-          <h2 className="mb-2 font-semibold">{t("emptyTitle")}</h2>
-          <p className="mb-6 max-w-xs text-sm text-muted-foreground">
-            {t("emptyDesc")}
-          </p>
-          <Link href="/wishlists/new">
-            <Button className="gap-2">
-              <Plus className="h-4 w-4" />
-              {t("emptyBtn")}
-            </Button>
-          </Link>
-        </div>
-      ) : (
-        <div className="grid gap-4 lg:grid-cols-2">
-          {rows.map((row) => (
-            <WishlistCard
-              key={row.id}
-              id={row.id}
-              title={row.title}
-              description={row.description}
-              slug={row.slug}
-              isPublic={row.isPublic}
-              deadline={row.deadline}
-              itemCount={row.itemCount}
-            />
-          ))}
-        </div>
-      )}
+      <DashboardWishlists initialWishlists={rows} />
     </div>
   )
 }

@@ -18,6 +18,7 @@ import { Plus, Upload } from "lucide-react"
 import { addWishlistItem } from "@/app/actions/items"
 import { toast } from "sonner"
 import { useTranslations } from "next-intl"
+import type { AddItemData } from "./wishlist-items-section"
 
 type FormData = {
   url: string
@@ -27,7 +28,13 @@ type FormData = {
   price: string
 }
 
-export function AddItemDialog({ wishlistId }: { wishlistId: string }) {
+export function AddItemDialog({
+  wishlistId,
+  onAdd,
+}: {
+  wishlistId: string
+  onAdd?: (data: AddItemData) => void
+}) {
   const t = useTranslations("items")
   const [open, setOpen] = useState(false)
   const [scraping, setScraping] = useState(false)
@@ -98,14 +105,24 @@ export function AddItemDialog({ wishlistId }: { wishlistId: string }) {
   }
 
   async function onSubmit(data: FormData) {
+    const itemData: AddItemData = {
+      url: data.url || null,
+      title: data.title,
+      description: data.description || null,
+      imageUrl: data.imageUrl || null,
+      price: data.price || null,
+    }
+
+    if (onAdd) {
+      onAdd(itemData)
+      reset()
+      setPreviewImage(null)
+      setOpen(false)
+      return
+    }
+
     try {
-      await addWishlistItem(wishlistId, {
-        url: data.url || null,
-        title: data.title,
-        description: data.description || null,
-        imageUrl: data.imageUrl || null,
-        price: data.price || null,
-      })
+      await addWishlistItem(wishlistId, itemData)
       toast.success(t("added"))
       reset()
       setPreviewImage(null)

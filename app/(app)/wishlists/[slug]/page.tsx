@@ -5,11 +5,9 @@ import { wishlists } from "@/db/schema"
 import { eq } from "drizzle-orm"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { AddItemDialog } from "@/components/wishlists/add-item-dialog"
 import { DeadlineCounter } from "@/components/wishlists/deadline-counter"
-import { OwnerItemRow } from "@/components/wishlists/owner-item-row"
+import { WishlistItemsSection } from "@/components/wishlists/wishlist-items-section"
 import { ArrowLeft, Globe, Lock } from "lucide-react"
 import { ShareButton } from "@/components/wishlists/share-button"
 import { getTranslations } from "next-intl/server"
@@ -73,45 +71,23 @@ export default async function OwnerWishlistPage({
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <ShareButton slug={slug} title={wishlist.title} />
-          <AddItemDialog wishlistId={wishlist.id} />
         </div>
       </div>
 
       <Separator className="mb-6" />
 
-      {wishlist.items.length === 0 ? (
-        <div className="py-16 text-center">
-          <p className="mb-4 text-muted-foreground">
-            {t("noItems")}
-          </p>
-          <AddItemDialog wishlistId={wishlist.id} />
-        </div>
-      ) : (
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">
-              {t("items", { count: wishlist.items.length })}
-            </p>
-            <Badge variant="secondary">
-              {t("claimed", { count: wishlist.items.filter((i) => i.claimedByUserId).length })}
-            </Badge>
-          </div>
-          {wishlist.items.map((item) => (
-            <OwnerItemRow
-              key={item.id}
-              item={{
-                id: item.id,
-                title: item.title,
-                description: item.description,
-                imageUrl: item.imageUrl,
-                price: item.price,
-                url: item.url,
-                claimedByName: item.claimedBy?.name ?? null,
-              }}
-            />
-          ))}
-        </div>
-      )}
+      <WishlistItemsSection
+        wishlistId={wishlist.id}
+        initialItems={wishlist.items.map((item) => ({
+          id: item.id,
+          title: item.title,
+          description: item.description,
+          imageUrl: item.imageUrl,
+          price: item.price,
+          url: item.url,
+          claimedByName: item.claimedBy?.name ?? null,
+        }))}
+      />
     </div>
   )
 }
