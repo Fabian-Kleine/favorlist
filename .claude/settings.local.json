@@ -15,7 +15,9 @@
       "PowerShell(pnpm db:migrate 2>&1)",
       "PowerShell(pnpm typecheck 2>&1)",
       "PowerShell(pnpm dev 2>&1)",
-      "PowerShell(pnpm dlx shadcn@latest add calendar popover --yes 2>&1)"
+      "PowerShell(pnpm dlx shadcn@latest add calendar popover --yes 2>&1)",
+      "PowerShell(pnpm why open-graph-scraper 2>&1)",
+      "PowerShell(head -5)"
     ]
   }
 }
