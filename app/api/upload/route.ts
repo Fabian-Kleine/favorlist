@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { randomUUID } from "crypto"
 import { auth } from "@/lib/auth"
 import { put } from "@vercel/blob"
 
@@ -34,6 +35,8 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const blob = await put(file.name, file, { access: "public" })
+  const ext = file.name.split(".").pop()
+  const filename = `${randomUUID()}.${ext}`
+  const blob = await put(filename, file, { access: "public" })
   return NextResponse.json({ url: blob.url })
 }
