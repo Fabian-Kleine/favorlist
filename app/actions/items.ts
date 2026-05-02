@@ -5,6 +5,7 @@ import { db } from "@/db"
 import { wishlists, wishlistItems } from "@/db/schema"
 import { eq, and } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
+import { del } from "@vercel/blob"
 import { z } from "zod"
 
 const itemSchema = z.object({
@@ -61,6 +62,10 @@ export async function deleteWishlistItem(itemId: string): Promise<void> {
   if (!item) throw new Error("Not found")
 
   await db.delete(wishlistItems).where(eq(wishlistItems.id, itemId))
+
+  if (item.imageUrl?.includes("blob.vercel-storage.com")) {
+    await del(item.imageUrl)
+  }
 
   revalidatePath(`/wishlists/${item.wishlist.slug}`)
 }
