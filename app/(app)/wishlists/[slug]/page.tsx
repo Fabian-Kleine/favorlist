@@ -10,7 +10,7 @@ import { Separator } from "@/components/ui/separator"
 import { AddItemDialog } from "@/components/wishlists/add-item-dialog"
 import { DeadlineCounter } from "@/components/wishlists/deadline-counter"
 import { OwnerItemRow } from "@/components/wishlists/owner-item-row"
-import { Share2, ArrowLeft, Globe, Lock } from "lucide-react"
+import { ArrowLeft, Globe, Lock } from "lucide-react"
 import { ShareButton } from "@/components/wishlists/share-button"
 import { getTranslations } from "next-intl/server"
 
@@ -50,10 +50,10 @@ export default async function OwnerWishlistPage({
         </Link>
       </div>
 
-      <div className="mb-6 flex items-start justify-between gap-4">
-        <div className="min-w-0 flex-1">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        <div className="min-w-0">
           <div className="mb-1 flex items-center gap-2">
-            <h1 className="font-heading truncate text-2xl font-bold">
+            <h1 className="font-heading text-2xl font-bold">
               {wishlist.title}
             </h1>
             {wishlist.isPublic ? (
