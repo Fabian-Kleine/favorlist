@@ -7,8 +7,7 @@ import { useTranslations } from "next-intl"
 
 export function ShareButton({ slug, title }: { slug: string; title?: string }) {
   const t = useTranslations("common")
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
-  const url = `${appUrl}/wishlists/${slug}/share`
+  const url = `${typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL ?? ""}/wishlists/${slug}/share`
 
   async function handleShare() {
     if (typeof navigator.share === "function") {

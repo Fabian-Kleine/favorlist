@@ -46,9 +46,7 @@ export function WishlistCard({
   const [isPending, startTransition] = useTransition()
   const [deleteOpen, setDeleteOpen] = useState(false)
 
-  const appUrl =
-    process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
-  const shareUrl = `${appUrl}/wishlists/${slug}/share`
+  const shareUrl = `${typeof window !== "undefined" ? window.location.origin : process.env.NEXT_PUBLIC_APP_URL ?? ""}/wishlists/${slug}/share`
 
   function handleShare() {
     if (navigator.share) {
