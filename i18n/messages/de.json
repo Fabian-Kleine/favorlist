@@ -131,7 +131,9 @@
     "illBuyThis": "Ich kaufe das \ud83c\udf81",
     "signInToClaim": "Anmelden zum Reservieren",
     "isOnIt": "{name} k\u00fcmmert sich darum",
-    "someoneIsOnIt": "Jemand k\u00fcmmert sich darum"
+    "someoneIsOnIt": "Jemand k\u00fcmmert sich darum",
+    "showDetails": "Details",
+    "hideDetails": "Weniger"
   },
   "share": {
     "wishlistBy": "Wunschliste von",
