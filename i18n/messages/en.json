@@ -133,7 +133,9 @@
     "illBuyThis": "I\u2019ll buy this \ud83c\udf81",
     "signInToClaim": "Sign in to claim",
     "isOnIt": "{name} is on it",
-    "someoneIsOnIt": "Someone is on it"
+    "someoneIsOnIt": "Someone is on it",
+    "showDetails": "Details",
+    "hideDetails": "Less"
   },
   "share": {
     "wishlistBy": "Wishlist by",

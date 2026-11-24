@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { DeadlineCounter } from "@/components/wishlists/deadline-counter"
 import { ClaimButton } from "@/components/wishlists/claim-button"
+import { ExpandableItemCard } from "@/components/wishlists/expandable-item-card"
 import { Gift } from "lucide-react"
 import Link from "next/link"
 import { getTranslations } from "next-intl/server"
@@ -66,7 +67,7 @@ export default async function SharePage({
         </div>
       </div>
 
-      <h1 className="font-heading mb-2 text-2xl font-bold">{wishlist.title}</h1>
+      <h1 className="mb-2 font-heading text-2xl font-bold">{wishlist.title}</h1>
       {wishlist.description && (
         <p className="mb-4 text-sm text-muted-foreground">
           {wishlist.description}
@@ -84,7 +85,9 @@ export default async function SharePage({
           {t("items", { count: wishlist.items.length })}
         </p>
         <Badge variant="secondary">
-          {t("claimed", { count: wishlist.items.filter((i) => i.claimedByUserId).length })}
+          {t("claimed", {
+            count: wishlist.items.filter((i) => i.claimedByUserId).length,
+          })}
         </Badge>
       </div>
 
@@ -97,41 +100,29 @@ export default async function SharePage({
       ) : (
         <div className="space-y-3">
           {wishlist.items.map((item) => (
-            <div
+            <ExpandableItemCard
               key={item.id}
-              className="flex items-start gap-3 rounded-xl border border-border/50 bg-card p-4"
-            >
-              {item.imageUrl && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="h-16 w-16 shrink-0 rounded-lg object-cover"
-                />
-              )}
-              <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="min-w-0">
-                    <p
-                      className={`truncate font-medium ${
-                        item.claimedByUserId ? "text-muted-foreground line-through" : ""
-                      }`}
-                    >
-                      {item.title}
-                    </p>
-                    {item.description && (
-                      <p className="mt-0.5 text-xs text-muted-foreground line-clamp-2">
-                        {item.description}
-                      </p>
-                    )}
-                  </div>
-                  {item.price && (
-                    <Badge variant="outline" className="shrink-0 text-xs font-semibold text-foreground">
-                      € {item.price}
-                    </Badge>
-                  )}
-                </div>
-                <div className="mt-3 flex items-center justify-between gap-2">
+              title={item.title}
+              description={item.description}
+              imageUrl={item.imageUrl}
+              thumbnailClassName="h-16 w-16"
+              titleClassName={
+                item.claimedByUserId
+                  ? "text-muted-foreground line-through"
+                  : undefined
+              }
+              badges={
+                item.price && (
+                  <Badge
+                    variant="outline"
+                    className="text-xs font-semibold text-foreground"
+                  >
+                    € {item.price}
+                  </Badge>
+                )
+              }
+              actions={
+                <>
                   {item.url && (
                     <a
                       href={item.url}
@@ -151,9 +142,9 @@ export default async function SharePage({
                       currentUserId={currentUserId}
                     />
                   </div>
-                </div>
-              </div>
-            </div>
+                </>
+              }
+            />
           ))}
         </div>
       )}
